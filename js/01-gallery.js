@@ -1,5 +1,6 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
+// instance = null;
 
 const gallery = document.querySelector(".gallery");
 const markup = renderGalleryItems(galleryItems);
@@ -39,12 +40,10 @@ function onGalleryItemClick(event) {
   const instance = basicLightbox.create(`<img src="${originalSrc}">`);
   instance.show();
 
-  document.addEventListener("keydown", onModalEscClose);
-}
+  document.addEventListener("keydown", function (event) {
+    if (event.key !== "Escape") return;
 
-function onModalEscClose(event) {
-  if (event.key !== "Escape") return;
-
-  instance.close();
-  document.removeEventListener("keydown", onModalClose);
+    instance.close();
+    document.removeEventListener("keydown", onModalClose);
+  });
 }
